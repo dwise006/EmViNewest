@@ -1,3 +1,30 @@
+<?php 
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+?>
+<style type="text/css">
+th {
+	width:140px;
+	font-weight: normal;
+	font-size: small;
+	color: #FAF6F6;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	background-color: #990099;
+	text-align: center;
+}
+td {
+	width: 110px;
+	font-weight: normal;
+	font-size: small;
+	color: #000000;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	background-color: #C0C0C0;
+	text-align: center;
+}
+</style>
+<h1>My Email</h1>
 <?php
 
 $subNav = array(
@@ -63,39 +90,38 @@ for ($i = 1; $i < count($types); ++$i) {
 
 //DISPLAY THE LOCKED BY TABLE
 echo 'With You As Current Owner <br />';
-echo '<table width = "100%" cellpadding="3" cellspacing="1" border="1">';
-echo '<tr>';
+echo '<table><tr>';
 if (strtolower($orderby) == 'name' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=Name&dir=desc" style="text-decoration:none;">Email Name</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=Name&dir=desc" style="text-decoration:none; color:white;">Email Name</th>';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=Name&dir=asc" style="text-decoration:none;">Email Name</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=Name&dir=asc" style="text-decoration:none; color:white;">Email Name</th>';
 }
 if (strtolower($orderby) == 'description' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:125px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=Description&dir=desc" style="text-decoration:none;">Description</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=Description&dir=desc" style="text-decoration:none; color:white;">Description</th>';
 } else {
-	echo '<td style="min-width:125px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=Description&dir=asc" style="text-decoration:none;">Description</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=Description&dir=asc" style="text-decoration:none; color:white;">Description</th>';
 }
 if (strtolower($orderby) == 'fromname' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:50px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=FromName&dir=desc" style="text-decoration:none;">From Name</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=FromName&dir=desc" style="text-decoration:none; color:white;">From Name</th>';
 } else {
-	echo '<td style="min-width:50px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=FromName&dir=asc" style="text-decoration:none;">From Name</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=FromName&dir=asc" style="text-decoration:none; color:white;">From Name</th>';
 }
 if (strtolower($orderby) == 'subject' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=Subject&dir=desc" style="text-decoration:none;">Subject</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=Subject&dir=desc" style="text-decoration:none; color:white;">Subject</th>';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=Subject&dir=asc" style="text-decoration:none;">Subject</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=Subject&dir=asc" style="text-decoration:none; color:white;">Subject</th>';
 }
 if (strtolower($orderby) == 'updatedate' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:75px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=UpdatedDate&dir=desc" style="text-decoration:none;">Last Updated</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=UpdatedDate&dir=desc" style="text-decoration:none; color:white;">Last Updated</th>';
 } else {
-	echo '<td style="min-width:75px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=UpdatedDate&dir=asc" style="text-decoration:none;">Last Updated</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=UpdatedDate&dir=asc" style="text-decoration:none; color:white;">Last Updated</th>';
 }
 if (strtolower($orderby) == 'ownedby' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:50px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=OwnedByName&dir=desc" style="text-decoration:none;">Locked By</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=OwnedByName&dir=desc" style="text-decoration:none; color:white;">Locked By</th>';
 } else {
-	echo '<td style="min-width:50px;font-weight:bold;"><a href="member.php#!/email/email.php?orderBy=OwnedByName&dir=asc" style="text-decoration:none;">Locked By</td>';
+	echo '<th><a href="member.php#!/email/email.php?orderBy=OwnedByName&dir=asc" style="text-decoration:none; color:white;">Locked By</th>';
 }
-echo '<td colspan="5"></td>';
+echo '<th colspan="5"></th>';
 echo '</tr>';
 echo $contentList;
 echo '</table>';

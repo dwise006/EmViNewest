@@ -1,4 +1,36 @@
-<?php
+﻿<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"></HEAD>
+<BODY>
+<PRE>&lt;style type="text/css"&gt;
+.tableheaders {
+	width:140px;
+	font-weight: normal;
+	font-size: small;
+	color: #FAF6F6;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	background-color: #000080;
+	text-align: center;
+
+}
+.tablebody {
+	width: 110px;
+	font-weight: normal;
+	font-size: small;
+	color: #000000;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	background-color: #C0C0C0;
+	text-align: center;
+
+}
+
+
+&lt;/style&gt;
+
+
+&lt;?php
 
 
 class Search
@@ -23,13 +55,13 @@ class Search
 		}
 		//$found = mysql_fetch_assoc($query);
 		
-		if (mysql_num_rows($query) < 1){
+		if (mysql_num_rows($query) &lt; 1){
 			echo "There is no content in the system that matches your search.";
-			echo "</br></br>";
+			echo "&lt;/br&gt;&lt;/br&gt;";
 			echo "You searched ".$field." for ".$word;
 			
 		}else{
-		$this->printTable($query);
+		$this-&gt;printTable($query);
 		}
     	
     }
@@ -39,18 +71,18 @@ class Search
     
     
     
-    	/*echo "<table>";
+    	/*echo "&lt;table&gt;";
     		while ($found = mysql_fetch_assoc($f)){
-    		echo "<tr>";
-    			echo "<td>".$found['contentID']."</td>";
-    			echo "<td>".$found['contentName']."</td>";
-				echo "<td>".$found['contentDescription']."</td>";
-				echo "<td>".$found['contentType']."</td>";
-				echo "<td>".$found['createdDate']."</td>";
-				echo "<td>".$found['updatedDate']."</td>";
-    		echo "</tr>";
+    		echo "&lt;tr&gt;";
+    			echo "&lt;td&gt;".$found['contentID']."&lt;/td&gt;";
+    			echo "&lt;td&gt;".$found['contentName']."&lt;/td&gt;";
+				echo "&lt;td&gt;".$found['contentDescription']."&lt;/td&gt;";
+				echo "&lt;td&gt;".$found['contentType']."&lt;/td&gt;";
+				echo "&lt;td&gt;".$found['createdDate']."&lt;/td&gt;";
+				echo "&lt;td&gt;".$found['updatedDate']."&lt;/td&gt;";
+    		echo "&lt;/tr&gt;";
     		}
-    	echo "</table>";
+    	echo "&lt;/table&gt;";
 */    	
     	session_start();
 $uid = $_SESSION['ID'];
@@ -66,73 +98,82 @@ $uid = $_SESSION['ID'];
 // UpdatedDate, UpdatedByID, UpdatedByName, OwnedByID, OwnedByName, FileName
 
 $contentList = '';
-for ($i = 1; $i < count($f); ++$i) {
-		$contentList .= '<tr><td>'. htmlentities($f[$i]['Name']) . '</td>
-		<td>' . htmlentities($f[$i]['Format']) . '</td>
-		<td>' . htmlentities($f[$i]['Description']) . '</td>
-		<td>' . htmlentities($f[$i]['Keywords']) . '</td>
-		<td>' . date("m/d/Y g:i a", strtotime($f[$i]['UpdatedDate'])) . '</td>
-		<td>' . htmlentities($f[$i]['OwnedByName']) . '</td>
-		<td>';
+for ($i = 1; $i &lt; count($f); ++$i) {
+		$contentList .= '&lt;tr&gt;&lt;td class="tablebody"&gt;'. htmlentities($f[$i]['Name']) . '&lt;/td&gt;
+		&lt;td class="tablebody"&gt;' . htmlentities($f[$i]['Format']) . '&lt;/td&gt;
+		&lt;td class="tablebody"&gt;' . htmlentities($f[$i]['Description']) . '&lt;/td&gt;
+		&lt;td class="tablebody"&gt;' . htmlentities($f[$i]['Keywords']) . '&lt;/td&gt;
+		&lt;td class="tablebody"&gt;' . date("m/d/Y g:i a", strtotime($f[$i]['UpdatedDate'])) . '&lt;/td&gt;
+		&lt;td class="tablebody"&gt;' . htmlentities($f[$i]['OwnedByName']) . '&lt;/td&gt;
+		&lt;td class="tablebody"&gt;';
 	if ($f[$i]['FileName'] != '') {
-		$contentList .= '<a href="content/upload/'. $f[$i]['FileName'] .'" target="_blank">View</a>';
+		$contentList .= '&lt;a href="content/upload/'. $f[$i]['FileName'] .'" target="_blank"&gt;View&lt;/a&gt;';
 	}
-	$contentList .=	'</td><td>';
+	$contentList .=	'&lt;/td&gt;&lt;td class="tablebody"&gt;';
 	if ($f[$i]['OwnedByID'] == $uid) {
-		$contentList .= '<a href="panels/content/editcontent.php?ID='.$f[$i]['ID'].'">Edit</a>';
+		if ($type == 'tbl_email'){
+			$contentList .= '&lt;a href="panels/email/editemail.php?ID='.$f[$i]['ID'].'"&gt;Edit&lt;/a&gt;';
+		}else if($type == 'tbl_content'){
+			$contentList .= '&lt;a href="panels/content/editcontent.php?ID='.$f[$i]['ID'].'"&gt;Edit&lt;/a&gt;';
+		}else if($type == 'tbl_campaign'){
+			$contentList .= '&lt;a href="panels/campaigns/editcampaign.php?ID='.$f[$i]['ID'].'"&gt;Edit&lt;/a&gt;';
+		}
+		
 	}
-	$contentList .= '</td>	
-		<td>Clone</td>
-		<td>';
+	$contentList .= '&lt;/td&gt;	
+		&lt;td class="tablebody"&gt;Clone&lt;/td&gt;
+		&lt;td class="tablebody"&gt;';
 	if ($f[$i]['OwnedByID'] == $uid) {
 		$contentList .= 'Delete';
 	}	
-	$contentList .= '</td>
-		</tr>';
+	$contentList .= '&lt;/td&gt;
+		&lt;/tr&gt;';
 }
 
 
 
     	//DISPLAY THE CONFERENCE REGISTRANTS
-echo '<table width = "100%" cellpadding="3" cellspacing="1" border="1">';
-echo '<tr>';
-if (strtolower($orderby) == 'name' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Name&dir=desc" style="text-decoration:none;">Content Name</td>';
+echo "&lt;table&gt;";
+	echo "&lt;thead class=\"tableheaders\"&gt;";
+echo '&lt;tr&gt;';
+if (strtolower($orderby) == 'name' &amp;&amp; strtolower($dir) == 'asc') {
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Name&amp;dir=desc" style="text-decoration:none; color:white"&gt;Content Name&lt;/td&gt;';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Name&dir=asc" style="text-decoration:none;">Content Name</td>';
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Name&amp;dir=asc" style="text-decoration:none; color:white"&gt;Content Name&lt;/td&gt;';
 }
-if (strtolower($orderby) == 'format' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Format&dir=desc" style="text-decoration:none;">Format</td>';
+if (strtolower($orderby) == 'format' &amp;&amp; strtolower($dir) == 'asc') {
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Format&amp;dir=desc" style="text-decoration:none; color:white"&gt;Format&lt;/td&gt;';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Format&dir=asc" style="text-decoration:none;">Format</td>';
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Format&amp;dir=asc" style="text-decoration:none; color:white"&gt;Format&lt;/td&gt;';
 }
-if (strtolower($orderby) == 'description' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Description&dir=desc" style="text-decoration:none;">Description</td>';
+if (strtolower($orderby) == 'description' &amp;&amp; strtolower($dir) == 'asc') {
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Description&amp;dir=desc" style="text-decoration:none; color:white"&gt;Description&lt;/td&gt;';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Description&dir=asc" style="text-decoration:none;">Description</td>';
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Description&amp;dir=asc" style="text-decoration:none; color:white"&gt;Description&lt;/td&gt;';
 }
-if (strtolower($orderby) == 'keywords' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Keywords&dir=desc" style="text-decoration:none;">Keywords</td>';
+if (strtolower($orderby) == 'keywords' &amp;&amp; strtolower($dir) == 'asc') {
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Keywords&amp;dir=desc" style="text-decoration:none; color:white"&gt;Keywords&lt;/td&gt;';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=Keywords&dir=asc" style="text-decoration:none;">Keywords</td>';
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=Keywords&amp;dir=asc" style="text-decoration:none; color:white"&gt;Keywords&lt;/td&gt;';
 }
-if (strtolower($orderby) == 'updatedate' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=UpdatedDate&dir=desc" style="text-decoration:none;">Last Updated</td>';
+if (strtolower($orderby) == 'updatedate' &amp;&amp; strtolower($dir) == 'asc') {
+	echo '&lt;td style="min-width:100px;font-weight:bold;"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=UpdatedDate&amp;dir=desc" style="text-decoration:none; color:white"&gt;Last Updated&lt;/td&gt;';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=UpdatedDate&dir=asc" style="text-decoration:none;">Last Updated</td>';
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=UpdatedDate&amp;dir=asc" style="text-decoration:none; color:white"&gt;Last Updated&lt;/td&gt;';
 }
-if (strtolower($orderby) == 'ownedby' && strtolower($dir) == 'asc') {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=OwnedByName&dir=desc" style="text-decoration:none;">Locked By</td>';
+if (strtolower($orderby) == 'ownedby' &amp;&amp; strtolower($dir) == 'asc') {
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=OwnedByName&amp;dir=desc" style="text-decoration:none; color:white"&gt;Locked By&lt;/td&gt;';
 } else {
-	echo '<td style="min-width:100px;font-weight:bold;"><a href="member.php#!/search/searchcontent.php?Type='.$type.'&Field='.$field.'&Value='.$word.'&orderBy=OwnedByName&dir=asc" style="text-decoration:none;">Locked By</td>';
+	echo '&lt;th class="tableheaders"&gt;&lt;a href="member.php#!/search/searchcontent.php?Type='.$type.'&amp;Field='.$field.'&amp;Value='.$word.'&amp;orderBy=OwnedByName&amp;dir=asc" style="text-decoration:none; color:white"&gt;Locked By&lt;/td&gt;';
 }
-echo '<td style="min-width:50px;font-weight:bold"></td>';
-echo '<td style="min-width:50px;font-weight:bold"></td>';
-echo '<td style="min-width:50px;font-weight:bold"></td>';
-echo '<td style="min-width:50px;font-weight:bold"></td>';
-echo '</tr>';
+echo '&lt;th class="tableheaders"&gt;&lt;/td&gt;';
+echo '&lt;td style="min-width:50px;font-weight:bold"&gt;&lt;/td&gt;';
+echo '&lt;td style="min-width:50px;font-weight:bold"&gt;&lt;/td&gt;';
+echo '&lt;td style="min-width:50px;font-weight:bold"&gt;&lt;/td&gt;';
+echo '&lt;/tr&gt;';
+echo '&lt;/thead&gt;';
 echo $contentList;
-echo '</table>';
+echo '&lt;/table&gt;';
 
     	
     	
@@ -163,14 +204,15 @@ fileLocation as 'FileName' FROM tbl_content as t1 LEFT JOIN tbl_user as t2 on t1
 			
 	 		//$sql .= "";
 	 		
-	 		//$sql .= "ORDER BY ID ASC";	
+	 		$sql .= " ORDER BY $orderby $dir";
+	 		
  		}	 	 
 		//echo $sql;
  		$arr = array();
  		$result = mysql_query($sql)
 		 		or die("Could not connect: " . mysql_error());
 
- 		for ($i = 0; $i < mysql_num_fields($result); ++$i) {
+ 		for ($i = 0; $i &lt; mysql_num_fields($result); ++$i) {
  			$arr[0][$i] = mysql_field_name($result,$i);
  		}
  		
@@ -179,7 +221,7 @@ fileLocation as 'FileName' FROM tbl_content as t1 LEFT JOIN tbl_user as t2 on t1
 			if (strpos(strtolower($row[$field]),strtolower($word)) !== false) {
 			
 
- 			for ($j = 0; $j < mysql_num_fields($result); ++$j) {
+ 			for ($j = 0; $j &lt; mysql_num_fields($result); ++$j) {
  					
 	 				$arr[$i][mysql_field_name($result,$j)] = $row[mysql_field_name($result,$j)];
 					}
@@ -189,12 +231,130 @@ fileLocation as 'FileName' FROM tbl_content as t1 LEFT JOIN tbl_user as t2 on t1
 		}
 		//print_r($arr);
 		echo "You searched for ".$field." with the value of ".$word.".";
-		$this->printTable($arr,$type,$field,$word);
+		$this-&gt;printTable($arr,$type,$field,$word);
 		
 
 		return $arr;
 
  	}
+ 	
+ 	
+
+public function get_email($type,$field,$word,$sort,$dir)
+ 	{
+ 	
+ 	include("../../config/DB_Connect.php");
+ 	
+ 	if($sort == NULL) {
+		$orderby = 'ID';
+		$dir = 'ASC';
+	}else {
+		$orderby = $sort;
+		$dir = $dir;
+	}
+ 		// Returns a 3-D array with the following:
+ 		// ID, Name, Description, Keywords, HTMLContentID, TextContentID, Subject, FromName, FromAddress,
+ 		// CreatedDate, CreatedByID, CreatedByName, UpdatedDate, UpdatedByID, UpdatedByName, OwnedByID, OwnedByName
+ 		
+ 		$sql = "SELECT emailID as 'ID', emailName as 'Name', emailDescription as 'Description', emailKeywords as 'Keywords', 
+ 				emailHTML as 'HTMLContentID', emailText as 'TextContentID', emailSubject as 'Subject', emailFromName as 'FromName', 
+ 				emailFromAddress as 'FromAddress', createdDate as 'CreatedDate', createdBy as 'CreatedByID', 
+ 				concat(t2.userFirstName, ' ', t2.userLastName) as 'CreatedByName', updatedDate as 'UpdatedDate', 
+				updatedBy as 'UpdatedByID', concat(t3.userFirstName, ' ', t3.userLastName) as 'UpdatedByName', 
+ 				canEdit as 'OwnedByID', concat(t4.userFirstName, ' ', t4.userLastName) as 'OwnedByName' 
+				FROM tbl_email as t1
+				LEFT JOIN tbl_user as t2 on t1.createdBy = t2.userID
+				LEFT JOIN tbl_user as t3 on t1.updatedBy = t3.userID
+				LEFT JOIN tbl_user as t4 on t1.canEdit = t4.userID ";
+		
+ 		$sql .= " ORDER BY $orderby $dir";		 	 
+
+ 		$arr = array();
+ 		$result = mysql_query($sql)
+		 		or die("Could not connect: " . mysql_error());
+
+ 		for ($i = 0; $i &lt; mysql_num_fields($result); ++$i) {
+ 			$arr[0][$i] = mysql_field_name($result,$i);
+ 		}
+ 		
+		$i = 1;
+		while($row=mysql_fetch_array($result)){
+			if (strpos(strtolower($row[$field]),strtolower($word)) !== false) {
+			
+
+ 			for ($j = 0; $j &lt; mysql_num_fields($result); ++$j) {
+ 					
+	 				$arr[$i][mysql_field_name($result,$j)] = $row[mysql_field_name($result,$j)];
+					}
+				++$i;
+				}
+			
+		}
+		
+		echo "You searched for ".$field." with the value of ".$word.".";
+		$this-&gt;printTable($arr,$type,$field,$word);
+		
+
+		return $arr;
+
+ 	}
+	
+ 	
+ 	public function get_campaign($type,$field,$word,$sort,$dir)
+ 	{
+ 		// Returns a 3-D array with the following:
+ 		// ID, Name, Description, Keywords, TypeID, Format, CreatedDate, CreatedByID, CreatedByName, 
+ 		// UpdatedDate, UpdatedByID, UpdatedByName, OwnedByID, OwnedByName, FileName
+ 		include("../../config/DB_Connect.php");
+ 	
+ 	if($sort == NULL) {
+		$orderby = 'ID';
+		$dir = 'ASC';
+	}else {
+		$orderby = $sort;
+		$dir = $dir;
+	}
+
+ 		
+ 		$sql = "SELECT campaignID as 'ID', campaignName as 'Name', campaignDescription as 'Description', campaignKeywords as 'Keywords', campaignStatus as 'StatusID', t3.wfStatusName as 'Status', 
+				CreatedDate as 'CreatedDate', launchDate as 'LaunchDate', createdBy as 'CreatedByID', concat(t2.userFirstName, ' ', t2.userLastName) as 'CreatedByName', canEdit
+				FROM tbl_campaigns as t1
+				LEFT JOIN tbl_user as t2 on t1.createdBy= t2.userID
+				LEFT JOIN tbl_wfStatus as t3 on t1.campaignStatus = t3.wfStatusID ";
+		
+ 		$sql .= "ORDER BY $orderby $dir";		 	 
+
+ 		$arr = array();
+ 		$result = mysql_query($sql)
+		 		or die("Could not connect: " . mysql_error());
+
+ 		for ($i = 0; $i &lt; mysql_num_fields($result); ++$i) {
+ 			$arr[0][$i] = mysql_field_name($result,$i);
+ 		}
+ 		
+		$i = 1;
+		while($row=mysql_fetch_array($result)){
+			if (strpos(strtolower($row[$field]),strtolower($word)) !== false) {
+			
+
+ 			for ($j = 0; $j &lt; mysql_num_fields($result); ++$j) {
+ 					
+	 				$arr[$i][mysql_field_name($result,$j)] = $row[mysql_field_name($result,$j)];
+					}
+				++$i;
+				}
+			
+		}
+		
+		echo "You searched for ".$field." with the value of ".$word.".";
+		$this-&gt;printTable($arr,$type,$field,$word);
+		
+
+		return $arr;
+
+ 	}
+
+
 
 	
 	
@@ -202,4 +362,6 @@ fileLocation as 'FileName' FROM tbl_content as t1 LEFT JOIN tbl_user as t2 on t1
 
 }
 
-?>
+?&gt;
+</PRE><IFRAME 
+style="width: 0px; height: 0px; visibility: hidden;"></IFRAME></BODY></HTML>
