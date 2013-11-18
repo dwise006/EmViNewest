@@ -121,6 +121,13 @@ public function get_statusIDByName($status) {
 		//echo $sql;
  	}
  	
+ 	public function delete_campaign($cid){
+ 		$remove = "DELETE FROM `tbl_campaigns` WHERE `campaignID` = ".$cid."";
+ 		$res = mysql_query($remove) 
+			OR die(mysql_error());
+
+ 	}
+ 	
  	
  	public function edit_campaign($cid,$uid,$name,$desc,$kw,$status,$ldate)
  	{
@@ -307,6 +314,14 @@ WHERE `campaignID` = ".$cid." order by `reviewOrder` asc";
 			OR die("you have an error " . mysql_error());
 				
 	}
+   
+   public function remove_allCampaignComments($cid){
+   
+   		$remove = "DELETE FROM `tbl_commentArchive` WHERE `campaignID` = ".$cid."";
+ 		$res = mysql_query($remove) 
+			OR die(mysql_error());
+
+   }
 
 
 }

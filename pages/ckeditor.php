@@ -10,6 +10,7 @@ $file = "../content/upload/".$_GET['name']."";
 */	
 
 ?>
+
 <script src="../ckeditor/ckeditor.js"></script>
 
 

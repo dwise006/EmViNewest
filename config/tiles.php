@@ -13,15 +13,35 @@ $review = mysql_query("SELECT * FROM tbl_reviewers left join tbl_campaigns on tb
 		if (!$review) {    
 				die("Query to show fields from table failed tiles.php Line 12");
 		}
+		
+$allOpenWork = mysql_query("SELECT * FROM `tbl_campaigns` WHERE `campaignStatus` != 5 and `campaignStatus` != 4");
+		if (!$allOpenWork) {    
+				die("Query to show fields from table failed tiles.php Line 8");
+		}
+
+$allInReview = mysql_query("SELECT * FROM `tbl_campaigns` WHERE `campaignStatus` != 3");
+		if (!$allInReview) {    
+				die("Query to show fields from table failed tiles.php Line 8");
+		}
+$today = date('Y-m-d');
+$allAddedToday = mysql_query("SELECT * FROM `tbl_campaigns` WHERE STR_TO_DATE(`createdDate`, '%Y-%m-%d') = '".$today."'");
+		if (!$allAddedToday) {    
+				die("Query to show fields from table failed tiles.php Line 8");
+		}
+
+
 
 $myNum = mysql_num_rows($work);
 $myRev = mysql_num_rows($review);
+$openTasks = mysql_num_rows($allOpenWork);
+$allReview = mysql_num_rows($allInReview);
+$addedToday = mysql_num_rows($allAddedToday);
 
 $tile[] = array("type"=>"simple","group"=>0,"x"=>0,"y"=>0,'width'=>2,'height'=>1,"background"=>"#000080","url"=>"workflow/mytasks.php",
 "title"=>"<div style='color:#FFFFFF;'>My Tasks</div>","text"=>"<div style='color:#FFFFFF;'>".$myNum." incomplete campaigns in work <br> ".$myRev." campaigns awaiting my review</div>");
 
-$tile[] = array("type"=>"simple","group"=>0,"x"=>0,"y"=>1,'width'=>2,'height'=>1,"background"=>"#000080","url"=>"workflow/alltasks.php",
-"title"=>"<div style='color:#FFFFFF;'>All Tasks</div>","text"=>"<div style='color:#FFFFFF;'>5 tasks added today<br>15 incomplete tasks total</div>");
+$tile[] = array("type"=>"simple","group"=>0,"x"=>0,"y"=>1,'width'=>2,'height'=>1,"background"=>"#000080","url"=>"workflow/addedtoday.php",
+"title"=>"<div style='color:#FFFFFF;'>All Tasks</div>","text"=>"<div style='color:#FFFFFF;'>".$addedToday." tasks added today<br>".$openTasks." incomplete tasks total <br> ".$allReview." tasks currently in review</div>");
 
 // $tile[] = array("type"=>"slideshow","group"=>0,"x"=>0,"y"=>1,"width"=>1,"height"=>1,"background"=>"#6950ab","url"=>"",
 	// "images"=>array("img/img1.png","img/img2.jpg","img/img3.jpg"),

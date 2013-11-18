@@ -6,6 +6,7 @@ $subNav = array(
 
 set_include_path("../../");
 include("../../inc/essentials.php");
+
 include("../user/userclass.php");
 
 session_start(); 

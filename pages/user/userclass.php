@@ -12,7 +12,9 @@ class User
 	public $userAccountStatus;		//states whethere the account is active or not
 	
 	/*this constructor profides a way create an instance of the currently logged on user*/
-	function _construct() {
+	public function __construct() {
+	
+	
     	include("../../config/DB_Connect.php");
 		session_start(); 
 

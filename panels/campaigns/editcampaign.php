@@ -32,21 +32,34 @@ $uid = $_SESSION['ID'];
 <script type="text/javascript">
 function validateForm()
  {
- var name=document.forms["aContent"]["name"].value;
- var desc=document.forms["aContent"]["description"].value;
+ var name=document.forms["aCampaign"]["name"].value;
+ var desc=document.forms["aCampaign"]["description"].value;
  
  if (name==null || name=="")
  {
-   alert("Content name cannot be blank.");
+   alert("Campaign name cannot be blank.");
    return false;
  }
  else if (desc==null || desc=="")
  {
- alert("Content description cannot be blank.");
+ alert("Campaign description cannot be blank.");
  return false;
  }
  
 }
+
+function validateDel()
+ {
+ var r=confirm("Are you sure you want to delete this campaign?  This action will remove all reviewers and comments along with releasing the attached content for use by other campaigns.");
+	if (r) {
+		return true;
+	 }
+	 else {
+	   return false;
+	 } 
+ 
+}
+
 </script>
 
 <?php 
@@ -106,7 +119,7 @@ function validateForm()
 
 ?>
 <div style="overflow:auto">
-<form name="aContent" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" action="<?php echo $_SERVER['PHP_SELF'];?>">
+<form name="aCampaign" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" action="<?php echo $_SERVER['PHP_SELF'];?>">
 <table width="450px"><tr>
 		<td>Content name:</td>
 		<td><input type="text" name="name" value="<?php echo $campaign['campaignName'];?>" /></td>
@@ -318,7 +331,15 @@ $assignRev = mysql_fetch_assoc($reviewers);
 <p>The order in which you select your reviewers will determine their order of approval.</p>
 
 
-<form>
+<form name="dCampaign" method="post" enctype="multipart/form-data" onsubmit="return validateDel()" action="<?php 
+if ($_GET['page'] == 'a'){
+	echo "panels/campaigns/deletecampaign.php?ID=".$_GET['ID']."&page=".$_GET['page']; 
+}else{
+	echo "panels/campaigns/deletecampaign.php?ID=".$_GET['ID']; 
+}
+
+
+?>">
 <input name="Delete" type="submit" value="Delete this Campaign" />
 </form>
 </div>
