@@ -10,14 +10,43 @@ use OpenCloud\Rackspace;
 // RETURNS: Authenticated connection to CDN
 function InitCDNSession()
 {	
+	//************************************************************************
+	//This section retrieves the CDN credentials from the database and uses them to connect to Rackspace
+	//Comment out everything between the star lines if not using the database for CDN credentials
+	
+	//REQUIRED FOR DATABASE CONNECTION
+	include_once '../../../config/general.php';
+	include_once '../../../config/DB_Connect.php';
+	
+	//FECTH USERNAME AND API KEY FROM DATABASE
+	$databaseFetch = mysql_fetch_assoc(mysql_query("SELECT `configBlockCode` FROM `tbl_siteConfig` WHERE `configObject`='CDNUserID'"));
+	$CDNUserID = $databaseFetch['configBlockCode'];
+	
+	$databaseFetch = mysql_fetch_assoc(mysql_query("SELECT `configBlockCode` FROM `tbl_siteConfig` WHERE `configObject`='CDNAPIKey'"));
+	$CDNAPIKey = $databaseFetch['configBlockCode'];
+	
+	//AUTHENTICATION CREDENTIALS
+	$credentials = array(
+	    'username' => $CDNUserID,
+	    'apiKey' => $CDNAPIKey
+	);
+	//************************************************************************
+	
+	
 	//AUTHENTICATION URL
 	$authURL = 'https://identity.api.rackspacecloud.com/v2.0/';
 
-	//AUTHENTICATION CREDENTIALS
-	$credentials = array(
-	    'username' => 'ubno1250',
-	    'apiKey' => '08a64cac4a0f12c9d7d5f6da2042ef2a'
-	);
+
+	//************************************************************************
+	//Uncomment this section if using hardwired CDN credentials rather than ones stored in the database.
+	//Be sure to insert credentials in lieu of placeholders
+	// //AUTHENTICATION CREDENTIALS
+	// $credentials = array(
+	//     'username' => 'PLACEHOLDER USERNAME',
+	//     'apiKey' => 'PLACEHOLDER API KEY'
+	// );
+	//************************************************************************
+	
 
 	//CLIENT CONNECTION OBJECT
 	$client = new Rackspace(RACKSPACE_US, $credentials);
