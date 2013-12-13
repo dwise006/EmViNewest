@@ -168,23 +168,28 @@ if($bgImage!=""){
 				<h1><a href="<?php if($bot){echo "index.php";}?>#!"><?php echo $siteName?></a></h1>
 		   		<h2><?php echo $siteDesc;?></h2>
 		    </div>
+		    <div align="center">
 		    <form action="logon.php" method="post"> 
  				<table border="0" align="center" style="width: 422px"> 
  					<tr><td colspan=2 class="auto-style3"></td></tr> 
- 					<tr><td style="color:black">Username:</td><td> 
- 					<input type="text" name="username" maxlength="50" style="width: 128px"> 
- 					</td><td style="width: 68px"></td><td></td></tr> 
- 					<tr><td style="color:black">Password:</td><td> 
- 					<input type="password" name="pass" maxlength="50" style="width: 128px"> 
- 					</td><td style="width: 68px"></td><td></td></tr> 
- 					<tr><td colspan="2" class="auto-style3"> 
- 					<input type="submit" name="submit" value="Login"> 
- 					</td><td style="width: 68px"></td><td></td></tr> 
- 					<tr><td colspan="4"><span style="color:black">If you do not have an account please 
-			click the link below to request one.</span><a href="registration.php">Register</a>
-</td></tr>
+ 					<tr><td style="color:black">Username:</td>
+ 						<td><input type="text" name="username" maxlength="50" style="width: 128px"></td>
+ 						<td style="width: 68px"></td>
+ 						<td></td>
+ 					</tr> 
+ 					<tr>
+ 						<td style="color:black">Password:</td>
+ 						<td><input type="password" name="pass" maxlength="50" style="width: 128px">&nbsp;<input type="submit" name="submit" value="Login"></td>
+ 						<td align="left"></td>
+ 						<td></td>
+ 					</tr> 
+ 					<tr>
+ 						<td colspan="4"><span style="color:black">If you do not have an account, please 
+			<a href="registration.php">register here</a>.</span></td>
+					</tr>
  				</table> 
- 			</form> 
+ 			</form>
+ 			</div> 
 		</div>
     </div>
     <?php triggerEvent("headerEnd");?>
@@ -211,7 +216,22 @@ if($bgImage!=""){
 	?>
 	</div> 	    
 </div>
-       
+<div align="center" style="font-family:arial;color:#000000;font-size:15px">
+<table style="align:center;width:60%">
+	<tr>
+		<td style="padding:25px;vertical-align:middle"><a href="http://cs.odu.edu" target="_blank"><img src="http://411orangef13.cs.odu.edu:8080/emvi/content/upload/529d776a462d7.jpg"></a></td>
+		<td style="vertical-align:top"><p>EmVi is a Computer Science senior project created for CS411W at Old Dominion University.
+		</p>
+		<p>
+		This is a fully functioning prototype developed in PHP and MySQL. You can try it out by logging in with the following credentials:<br>
+username: csuser@odu.edu<br>
+password: BigBlue#1		<br>
+</p><p>
+		Read more on the <a href="http://www.cs.odu.edu/~411orang/" target="_blank">project page</a>.
+		</p></td>
+	</tr>
+</table>
+</div>
     
 	<footer>
 		<?php 
@@ -223,11 +243,11 @@ if($bgImage!=""){
 
 	<?php
 
-if($device=='mobileOnDesktop'){
+/*if($device=='mobileOnDesktop'){
 	?>
 	<a id="mobileOnDesktop" href="mobile.php">Go to mobile site</a>
     <?php
-}
+}*/
 ?>
 <?php triggerEvent("bodyEnd");?>
 </body>

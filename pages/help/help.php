@@ -2,12 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Untitled 1</title>
-</head>
+  <meta http-equiv="Content-Type" content="text/html: charset=utf-8"/>
+  <title>About EmVi</title>
 
+</head>
 <body>
-Help page
+
+
+
+	Download the <a href="pages/help/manual.pdf" target="_blank">EmVi User Manual</a> (pdf).
+
 </body>
 
 </html>
